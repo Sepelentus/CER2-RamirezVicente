@@ -1,0 +1,93 @@
+{% extends 'core/home.html' %}
+
+{% load static %}
+
+{% block intro %}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-5 col-lg-5 col-xl-5">
+            <h1>Pagina de administracion de correspondencias</h1>
+            <p style="padding-top:20px; text-align: justify;">Bajo de aqui se podra filtrar por el numer de residencia las correspondencias registradas dentro del sistema.</p>
+        </div>
+        <div class="col-md-2 col-lg-2 col-xl-2"></div>
+        <div class="col-xs-12 col-md-5 col-lg-5 col-xl-5">
+        <img 
+        src="{% static 'core/img/gestion-de-correspondencia.png' %}" class="img-fluid" alt="logoinformatica">
+        </div>
+    </div>
+</div>
+{% endblock intro %}
+
+{% block correspondencias %}
+
+    <div class="tab">
+        {% for i in correspondencia%}
+        <button class="tablinks" onclick="openTab(event, '{{i.NroResidencia.NRO}}')">N. Residencia:
+            {{i.NroResidencia.NRO}}</button>
+        {% endfor %}
+    </div>
+    
+    <!-- Tab content -->
+    {% for i in correspondencia%}
+    <div id="{{i.NroResidencia.NRO}}" class="tabcontent" style="display:none ;">
+        <h3>Numero de residencia: {{i.NroResidencia.NRO}}</h3>
+        <p>
+            Fecha de recepcion: {{i.Fecha_recepcion}} <br>
+            Conserje: {{i.conserje.Nombre}} <br>
+            Remitente: {{i.remitente}} <br>
+            Destinatario: {{i.destinatario}} <br>
+            Estado: {{i.Estado}} <br>
+        </p>
+    </div>
+    {% endfor %}
+    
+    
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-5 col-lg-5 col-xl-5">
+                <h1>Lista total de correspondencias registradas</h1>
+                <p style="padding-top:20px; text-align: justify;">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fuga illum reprehenderit esse ad iusto maiores accusantium minus officiis saepe sunt numquam porro eius, obcaecati pariatur repellat unde provident sint magni eaque debitis! Veritatis quam corporis debitis, ipsa vero fugiat maiores. Quasi eaque, officia totam sed nobis a, distinctio, blanditiis fugit itaque repellendus doloribus architecto eius dolor deserunt sint? Soluta, fuga molestias. Earum voluptatem numquam laudantium, repellat ut dolorem id hic! Cumque, optio numquam! Ipsam, tempora?</p>
+            </div>
+            <div class="col-md-2 col-lg-2 col-xl-2"></div>
+            <div class="col-xs-12 col-md-5 col-lg-5 col-xl-5" id="lista">
+                <p>
+                    {% for i in correspondencia%}
+                    <h2>Numero de residencia: {{i.NroResidencia.NRO}}</h2>
+                    Fecha de recepcion: {{i.Fecha_recepcion}} <br>
+                    Conserje: {{i.conserje.Nombre}} <br>
+                    Remitente: {{i.remitente}} <br>
+                    Destinatario: {{i.destinatario}} <br>
+                    Estado: {{i.Estado}} <br>
+                    {% endfor %}
+                </p>
+                
+            </div>
+        </div>
+
+    </div>
+
+<script>
+function openTab(evt, tabName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+{% endblock correspondencias %}
